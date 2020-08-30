@@ -1,3 +1,5 @@
+// create 
+
 var times = {
     "9 AM": "",
     "10 AM": "",
@@ -10,8 +12,10 @@ var times = {
     "5 PM": ""
 };
 
+// display current date
 $("#currentDay").text(moment().format("dddd, MMMM Do"));
 
+// dynamically display backgrounds corresponding to the current hour
 var counter = 1;
 function checkHour() {
     for (const property in times) {
@@ -31,10 +35,10 @@ function checkHour() {
             $(text).addClass("present");
         }
         counter++;
-    }
-    
+    }   
 };
 
+// convert times to values to be compared against military time
 function convertTimes(hourValue) {
     switch(hourValue) {
         case "9 AM": return 9;
@@ -49,7 +53,14 @@ function convertTimes(hourValue) {
     }
 }
 
+/// save button function
+$(".saveBtn").on("click", function(){
+    var apptName = $(this).siblings(".col-8").val()
+    var apptTime = $(this).siblings(".time-block").children(".hour").text()
+    localStorage.setItem(apptTime, apptName)
+})
+
 checkHour();
 setInterval(function() {
     checkHour();
-  }, (1000 * 60) * 30);
+  }, (1000 * 60) * 5);
