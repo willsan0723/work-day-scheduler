@@ -10,7 +10,6 @@ var times = {
     "4 PM": "",
     "5 PM": ""
 };
-var apptGlob = [];
 
 // convert times to values to be compared against military time
 function convertTimes(hourValue) {
@@ -64,7 +63,11 @@ $(".saveBtn").on("click", function(){
         // localStorage.setItem(apptTime, apptName)
     if (!localStorage.getItem("apptMents")){
         localStorage.setItem("apptMents", JSON.stringify(times))
-    }    
+    }
+
+    var apptMents = JSON.parse(localStorage.getItem("apptMents"));
+    apptMents[apptTime] = apptName;
+    localStorage.setItem("apptMents", JSON.stringify(apptMents));
 })
 
 var loadData = function () {
