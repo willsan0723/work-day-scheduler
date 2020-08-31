@@ -1,5 +1,4 @@
-// create 
-
+// create array to hold times
 var times = {
     "9 AM": "",
     "10 AM": "",
@@ -11,13 +10,32 @@ var times = {
     "4 PM": "",
     "5 PM": ""
 };
+var apptGlob = [];
+
+// convert times to values to be compared against military time
+function convertTimes(hourValue) {
+    switch(hourValue) {
+        case "9 AM": return 9;
+        case "10 AM": return 10;
+        case "11 AM": return 11;
+        case "12 PM": return 12;
+        case "1 PM": return 13;
+        case "2 PM": return 14;
+        case "3 PM": return 15;
+        case "4 PM": return 16;
+        case "5 PM": return 17;
+    }
+}
+
 
 // display current date
 $("#currentDay").text(moment().format("dddd, MMMM Do"));
 
 // dynamically display backgrounds corresponding to the current hour
-var counter = 1;
+
 function checkHour() {
+    // brought into this function so it could be rechecked
+    var counter = 1;
     for (const property in times) {
         var text = "#text" + counter;
         $(text).text(times[property]);
@@ -35,32 +53,34 @@ function checkHour() {
             $(text).addClass("present");
         }
         counter++;
-    }   
+    }  
 };
 
-// convert times to values to be compared against military time
-function convertTimes(hourValue) {
-    switch(hourValue) {
-        case "9 AM": return 9;
-        case "10 AM": return 10;
-        case "11 AM": return 11;
-        case "12 PM": return 12;
-        case "1 PM": return 13;
-        case "2 PM": return 14;
-        case "3 PM": return 15;
-        case "4 PM": return 16;
-        case "5 PM": return 17;
-    }
-}
 
-/// save button function
+// save button function
 $(".saveBtn").on("click", function(){
-    var apptName = $(this).siblings(".col-8").val()
     var apptTime = $(this).siblings(".time-block").children(".hour").text()
-    localStorage.setItem(apptTime, apptName)
+    var apptName = $(this).siblings(".col-8").val()
+        // localStorage.setItem(apptTime, apptName)
+    if (!localStorage.getItem("apptMents")){
+        localStorage.setItem("apptMents", JSON.stringify(times))
+    }    
 })
 
+var loadData = function () {
+    var savedAppt = localStorage.getItem("apptMents")
+    if (!savedAppt) {
+        return false;
+    }
+    savedAppt = JSON.parse(savedAppt);
+
+}
+loadData();
+
 checkHour();
+
+
+// check time every 5 minutes in case people are leaving the page open
 setInterval(function() {
     checkHour();
   }, (1000 * 60) * 5);
