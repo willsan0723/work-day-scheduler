@@ -88,4 +88,4 @@ checkHour();
 // check time every 5 minutes in case people are leaving the page open
 setInterval(function() {
     checkHour();
-  }, (1000 * 60) * 5);
+  }, 300000);
