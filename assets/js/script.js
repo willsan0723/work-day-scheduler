@@ -78,7 +78,6 @@ $(".saveBtn").on("click", function(){
 function popAppts(appt) {    
     $(".row").each(function(index) {
         var time = $(this).children(".time-block").children(".hour");  
-        console.log($(this).children("textarea").text(appt[time.text()]));      
         $(this).children("textarea").text(appt[time.text()]);
     })
 }
