@@ -13,6 +13,7 @@ It's important to keep your work day organized. This simple application can help
 ### Screenshots
 ![](Screenshot_1.jpg)
 ![](Screenshot_2.jpg)
+![](Screenshot_3.jpg)
 
 ### Deployed App
 https://willsan0723.github.io/work-day-scheduler/
